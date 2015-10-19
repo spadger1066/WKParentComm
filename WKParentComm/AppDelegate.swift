@@ -7,18 +7,49 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     var window: UIWindow?
-
+    var sum: Float = 0.0
+    var average: Float!
+    var count: Float = 0.0
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        if (WCSession.isSupported()){
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+            
+            if session.paired != true {
+                print("Apple watch is not paired")
+            }
+            
+            if session.watchAppInstalled != true {
+                print("WatchConnectivity is not supported on this device")
+            }
+        }
         return true
     }
-
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        if let input = message as? [String : Float] {
+            sum = sum + input["input"]! as Float!
+        }
+        
+        // Calculate the average
+        count += 1
+        average = sum / count
+        
+        // Prepare and return the data
+        var avgDict = Dictionary<String, Float>()
+        avgDict["average"] = average
+        replyHandler(avgDict)
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

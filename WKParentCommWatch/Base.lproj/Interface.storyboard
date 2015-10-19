@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8092"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WKParentCommWatch" customModuleProvider="target">
+                    <items>
+                        <label alignment="center" text="Label" id="Vn1-ya-GNI"/>
+                        <group width="1" alignment="left" id="Ow8-Hl-O3b">
+                            <items>
+                                <slider width="102" alignment="left" maximum="5" steps="5" id="U3a-mq-Yum">
+                                    <connections>
+                                        <action selector="inputChanged:" destination="AgC-eL-Hgc" id="HCc-Fu-ama"/>
+                                    </connections>
+                                </slider>
+                                <label width="29.5" height="36.5" alignment="left" text="0" textAlignment="center" id="Kdz-d9-b1H"/>
+                            </items>
+                        </group>
+                        <button width="1" height="34.5" alignment="left" title="Average" id="PpZ-IY-zM9">
+                            <connections>
+                                <action selector="getInfo" destination="AgC-eL-Hgc" id="lYt-cX-FaZ"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="lblInfo" destination="Vn1-ya-GNI" id="5v4-sT-6U3"/>
+                        <outlet property="lblInput" destination="Kdz-d9-b1H" id="ExP-vV-nyb"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="WKParentCommWatch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>
